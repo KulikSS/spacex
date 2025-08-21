@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&display=swap");
+
+:root{
+  --text: #ffffff;
+  --muted: rgba(255,255,255,.7);
+  --accent: #ff5a2f;
+  --card-bg: rgba(14,16,28,.22);
+  --card-stroke: rgba(255,255,255,.08);
+  --container: 1200px;
+
+  /* общий градиент для двух строк — параллельный */
+  --title-gradient: linear-gradient(90deg,#ffffff 0%,#ffd7c5 32%,#ff874e 58%,#ff5a2f 100%);
+}
+
+*{ box-sizing:border-box; }
+html,body,#root{ height:100%; }
+body{ margin:0; background:#000; color:var(--text); font-family: Montserrat, system-ui, sans-serif; }
+
+.container{ width:100%; max-width:var(--container); margin:0 auto; padding:0 24px; }
+
+.page{
+  min-height:100%;
+  background-size: cover;           /* исходная картинка без затемнения */
+  background-position: center;
+  position: relative;
+}
+
+/* HEADER */
+.header{
+  position: sticky; top:0; z-index:5;
+  background: rgba(0,0,0,.25);      /* легкая прозрачность без затемнения сцены */
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  backdrop-filter: blur(4px);
+}
+.header__inner{ display:flex; align-items:center; height:86px; gap:28px; }
+
+/* ЛОГО СУЩЕСТВЕННО БОЛЬШЕ */
+.logo{ height:60px; width:auto; display:block; } /* было маленьким */
+
+.nav{ margin-left:auto; display:flex; gap:28px; font:600 14px/1.2 Montserrat, sans-serif; }
+.nav__link{ color:var(--muted); text-decoration:none; padding:6px 2px; }
+.nav__link:hover{ color:#fff; }
+
+/* HERO */
+.hero{
+  min-height: calc(100vh - 86px);
+  display:grid;
+  grid-template-columns: 1.05fr .7fr;
+  align-items:center; gap:32px;
+  padding: 8px 0 48px;
+}
+
+/* Заголовки и градиент */
+.hero__copy{ max-width:720px; }
+.hero__title{
+  margin:0 0 8px;
+  font: 900 86px/1.02 Montserrat, sans-serif; /* уменьшила размер */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.hero__subtitle{
+  margin: 0 0 28px;
+  font: 600 28px/1.4 Montserrat, sans-serif;
+}
+
+/* единый «параллельный» градиент для обеих строк */
+.title-gradient{
+  display:inline-block;
+  background: var(--title-gradient);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color: transparent;
+  /* одинаковые позиция и размер, чтобы полосы шли параллельно */
+  background-size: 1200px 100%;
+  background-position: 0 0;
+}
+
+/* Кнопка */
+.cta{
+  position:relative;
+  display:inline-block;
+  padding:15px 30px;
+  font:700 14px/1 Montserrat, sans-serif;
+  color:#fff; background:transparent;
+  border:1.5px solid #3c4b60;
+  border-radius:4px;
+  cursor:pointer;
+}
+.cta::before,.cta::after{
+  content:""; position:absolute; width:10px; height:10px; pointer-events:none;
+  background: radial-gradient(circle at 30% 30%, #ffffffcc 0%, #ffffff55 45%, transparent 70%);
+}
+.cta::before{ left:8px; top:6px; }
+.cta::after{ right:8px; bottom:6px; }
+
+/* Карточки — как раньше: квадратные, центр по вертикали */
+.metrics{
+  justify-self:end;
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:22px;
+}
+.metric{
+  width:260px; height:260px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  background: var(--card-bg);
+  border:1px solid var(--card-stroke);
+  border-radius:12px;
+  backdrop-filter: blur(6px);
+}
+.metric__label{ font:500 14px/1.2 Montserrat, sans-serif; color:var(--muted); margin-bottom:6px; }
+.metric__value{ font:900 68px/1 Montserrat, sans-serif; margin:4px 0 6px; }
+.metric__suffix{ font:900 28px/1 Montserrat, sans-serif; margin-left:6px; }
+.metric__desc{ font:500 14px/1.2 Montserrat, sans-serif; color:var(--muted); }
+
+/* адаптив */
+@media (max-width:1280px){
+  .hero{ grid-template-columns:1fr; gap:36px; }
+  .metrics{ justify-self:start; }
+}
+@media (max-width:768px){
+  .nav{ display:none; }
+  .hero__title{ font-size:56px; }
+  .hero__subtitle{ font-size:18px; }
+  .metric{ width:44vw; height:44vw; max-width:240px; max-height:240px; }
+}
